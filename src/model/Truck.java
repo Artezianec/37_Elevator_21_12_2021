@@ -16,13 +16,22 @@ public class Truck implements Runnable {
     @Override
     public void run() {
         for (int i = 0; i < nRaces; i++) {
-            synchronized (monitor) {
-                elevator[0].add((capacity / elevator.length));
-            }
-            synchronized (monitor2) {
-                elevator[1].add((capacity / elevator.length));
+            if (hashCode() % 2 == 0) {
+                synchronized (monitor) {
+                    elevator[0].add((capacity / elevator.length));
+                }
+                synchronized (monitor2) {
+                    elevator[1].add((capacity / elevator.length));
+                }
+            } else {
+
+                synchronized (monitor) {
+                    elevator[1].add((capacity / elevator.length));
+                }
+                synchronized (monitor2) {
+                    elevator[0].add((capacity / elevator.length));
+                }
             }
         }
     }
-
 }
