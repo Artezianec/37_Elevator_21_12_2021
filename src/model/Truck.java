@@ -2,6 +2,7 @@ package model;
 
 public class Truck implements Runnable {
     private static final Object monitor = new Object();
+    private static final Object monitor2 = new Object();
     int nRaces;
     int capacity;
     Elevator[] elevator;
@@ -14,9 +15,12 @@ public class Truck implements Runnable {
 
     @Override
     public void run() {
-        for (Elevator value : elevator) {
+        for (int i = 0; i < nRaces; i++) {
             synchronized (monitor) {
-                value.add((capacity / elevator.length));
+                elevator[0].add((capacity / elevator.length));
+            }
+            synchronized (monitor2) {
+                elevator[1].add((capacity / elevator.length));
             }
         }
     }
